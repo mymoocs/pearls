@@ -24,6 +24,10 @@ instance (Num a) => Seminearring (Nat a) where
 -- |
 -- >>> ten9 :: Count
 -- 999999999
+-- >>> map char "asdasd" :: [Count]
+-- [1,1,1,1,1,1]
+-- >>> product [Nat 1, Nat 10, Nat 12] :: Count
+-- 120
 instance (Num a) => Character (Nat a) where
     char _ = one
 
