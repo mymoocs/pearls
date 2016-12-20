@@ -1,6 +1,6 @@
 {--
   Created       : 2016 Dec 07 (Wed) 02:08:34 PM by Arthur Vardanyan.
-  Last Modified : 2016 Dec 07 (Wed) 02:08:41 PM by Arthur Vardanyan.
+  Last Modified : 2016 Dec 20 (Tue) 06:35:21 PM by Arthur Vardanyan.
 --}
 
 
@@ -84,15 +84,61 @@ strings = sum . map string . words
 -- ["one","two","three","four","five"]
 
 
+skip :: Int -> [a] -> [a]
+skip 0 xs = xs
+skip _ [] = []
+skip n (x:xs) = skip (n-1) xs
+
+-- tem2' - two digits numbers [10..99]
+-- ten2  - [1..99]
+-- ten3' - [100..999]
+-- ten3  - [1..999]
+ten1, ten1', ten2, ten2', ten3, ten3', ten4', ten4,
+      ten5, ten5', ten6, ten6_1, ten6',
+      ten7, ten7', ten9 :: (Seminearring a, Character a) => a
+ten1' = strings "0 1 2 3 4 5 6 7 8 9"
+ten1  = strings   "1 2 3 4 5 6 7 8 9"
+ten2' = ten1 * ten1'
+ten2  = ten1 + ten2'
+ten3' = ten1 * (strings "0" * ten1' + ten2')
+ten3  = ten2 + ten3'
+ten4' = ten1 * (strings "00" * ten1' + strings "0"* ten2' + ten3')
+ten4  = ten3 + ten4'
+ten5' = ten1 * (strings "000" * ten1' + strings "00"* ten2'
+                            + strings "0" * ten3' + ten4')
+ten5  = ten3 + ten4'
+
+ten6' = ten3 * (strings "00" * ten1' + strings "0" * ten2'  + ten3')
+ten6  = ten4 + ten5'
+ten6_1  = ten3 + ten3 * (strings "00" * ten1' + strings "0" * ten2'  + ten3')
+
+ten7' = ten3 * (strings "00" * ten1' + strings "0" * ten2'  + ten3')
+ten7  = ten5 + ten6'
 
 
-ten1, ten2, ten3, ten6, ten9 :: (Seminearring a, Character a) => a
-ten1 = strings "one two three four five six seven eight nine"
-ten2 = ten1
-     + strings "ten eleven twelve"
-     + (strings "thir four" + prefixes) * string "teen"
-     + (strings "twen thir for" + prefixes) * string "ty" * (one + ten1)
-    where prefixes = strings "fif six seven eigh nine"
-ten3 = ten2 + ten1 * string "hundred" * (one + ten2)
-ten6 = ten3 + ten3 * string "thousand" * (one + ten3)
-ten9 = ten6 + ten3 * string "million" * (one + ten6)
+ten9  = ten6 + ten6' * (strings "00" * ten1' + strings "0" * ten2' +
+                                    ten3' + ten6')
+-- ten9  = ten6 + ten3' * (strings "000" * ten1' + strings "00" * ten2'
+--                                   +  ten3' +  ten6')
+
+
+
+testAt :: Int -> [String] -> Bool
+testAt n xs = xs!!(n-1) == show n
+
+test :: [String] -> Bool
+test xs = and . map (\(a,b) -> a == show b) $ zip xs [1..]
+
+test' :: [String] -> [(Bool, String, Integer)]
+test' xs = map (\(a,b) -> (a == show b, a, b)) $ zip xs [1..]
+
+test3  = test ten3
+test4  = test ten4
+test5  = test ten5
+test6  = test ten6
+test6_1  = test ten6_1
+test9  = test ten9
+
+-- take 10 $ filter (\(b, _, _) -> not b) test9'
+test6' xs = test' ten6
+test9' xs = test' ten9
