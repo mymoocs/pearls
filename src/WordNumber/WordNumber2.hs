@@ -1,7 +1,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {--
   Created       : 2016 Dec 07 (Wed) 02:08:13 PM by Arthur Vardanyan.
-  Last Modified : 2016 Dec 08 (Thu) 07:02:50 PM by Arthur Vardanyan.
+  Last Modified : 2016 Dec 26 (Mon) 02:01:23 PM by Arthur Vardanyan.
 --}
 -- http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WordNumbers2/
 
@@ -118,4 +118,5 @@ type Volume = Wrap V (Nat Integer)
 -- Deriv 999999 44872000
 -- >>> ten2 :: Deriv Count Volume
 -- Deriv 99 854
-instance Character Volume where char _ = one
+instance Character Volume where
+    char _ = one
