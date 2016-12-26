@@ -1,12 +1,12 @@
 {--
   Created       : 2016 Dec 07 (Wed) 02:08:34 PM by Arthur Vardanyan.
-  Last Modified : 2016 Dec 20 (Tue) 07:53:53 PM by Arthur Vardanyan.
+  Last Modified : 2016 Dec 21 (Wed) 03:03:53 PM by Arthur Vardanyan.
 --}
 
 
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
-module WordNumber.WordNumber1 where
+module WordNumber.DigitNumber1 where
 
 import Prelude hiding ((+), (*), sum, product, Monoid)
 import qualified Prelude as P

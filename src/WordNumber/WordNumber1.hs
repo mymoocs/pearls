@@ -1,6 +1,6 @@
 {--
   Created       : 2016 Dec 07 (Wed) 02:08:34 PM by Arthur Vardanyan.
-  Last Modified : 2016 Dec 07 (Wed) 02:08:41 PM by Arthur Vardanyan.
+  Last Modified : 2016 Dec 26 (Mon) 01:16:52 PM by Arthur Vardanyan.
 --}
 
 
@@ -47,23 +47,33 @@ class Character a where
   char :: Char -> a
 
 instance Character Char where
-  char = id
+  char  = id
 
 instance (Character a) => Character [a] where
   char c = [char c]
 
--- mapping from characters to strings by concatenating (multiplying) its output.
+-- | mapping from characters to strings by concatenating (multiplying) its output.
+-- >>> product [["1", "2", "3"], ["0", "1", "2"]]
+-- ["10","11","12","20","21","22","30","31","32"]
+-- >>>
 product :: (Seminearring a) => [a] -> a
 product = foldr (*) one
 
---
+-- |
+-- >>>> string "asd" :: [String]
+-- ["asd"]
 string :: (Seminearring a, Character a) => String -> a
 string = product . map char
 
-
+-- |
+-- >>> sum [["1", "2", "3"], ["0", "1", "2"]]
+-- ["1","2","3","0","1","2"]
 sum :: (Monoid a) => [a] -> a
 sum = foldr (+) zero
 
+-- |
+-- >>> strings "asd asd asd " :: [String]
+-- ["asd","asd","asd"]
 strings :: (Seminearring a, Character a) => String -> a
 strings = sum . map string . words
 
