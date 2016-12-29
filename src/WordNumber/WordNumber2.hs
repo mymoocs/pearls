@@ -1,7 +1,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {--
   Created       : 2016 Dec 07 (Wed) 02:08:13 PM by Arthur Vardanyan.
-  Last Modified : 2016 Dec 26 (Mon) 02:01:23 PM by Arthur Vardanyan.
+  Last Modified : 2016 Dec 27 (Tue) 03:30:50 PM by Arthur Vardanyan.
 --}
 -- http://conway.rutgers.edu/~ccshan/wiki/blog/posts/WordNumbers2/
 
@@ -61,6 +61,9 @@ class (Seminearring r, Monoid m) => Module r m where
 -- (x *> m) <* y = x *> (m <* y)
 
 -- Now a derivative as a pair of a value and a derivative
+-- http://www.danielbrice.net/blog/10/
+-- So, you’d think of the Deriv 4 0.5 as saying the function’s value is 4 right now,
+-- and its derivative is 0.5 right now.
 data Deriv r m = Deriv r m deriving (Eq, Show)
 
 
